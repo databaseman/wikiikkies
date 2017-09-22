@@ -58,5 +58,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'rspec-rails', '~> 3.0',    :group => [:development, :test]
 gem "capybara",                 :group => [:test]
 gem "factory_girl_rails",       :group => [:test]
-
+gem "bootstrap-sass"            # formating
+gem "font-awesome-rails"        # formating
+gem "simple_form"             # formating
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
