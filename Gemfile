@@ -59,6 +59,16 @@ gem 'rspec-rails', '~> 3.0',    :group => [:development, :test]
 gem "capybara",                 :group => [:test]
 gem "factory_girl_rails",       :group => [:test]
 gem "bootstrap-sass"            # formating
+gem "bootstrap-will_paginate" # formating
+gem 'will_paginate'           # formating
 gem "font-awesome-rails"        # formating
 gem "simple_form"             # formating
+gem 'devise'                    # Authorization
+gem 'devise_security_extension' # Extra security for devise
+gem 'rails_email_validator'     # email validator for devise
+gem 'stripe'                  # credit card handing
+gem 'redcarpet'               # markup html
+gem 'pundit'                  # Access control
+gem 'figaro'                  # environment variables hidden
+gem 'faker'                   # test data
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
