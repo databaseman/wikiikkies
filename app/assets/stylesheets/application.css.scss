@@ -7,18 +7,15 @@ header {
   @extend .page-header;
   position: relative;
   padding-bottom: 0px;
+
   &:first-child {
     margin-top: 20px;
   }
 }
+
 ul.actions {
   @extend .list-unstyled;
   @extend .list-inline;
-  position: absolute;
-  bottom: -2px;
-  right: 2px;
-  max-width: 45%;
-  text-align: right;
 }
 
 a.new, a.edit, a.delete {
