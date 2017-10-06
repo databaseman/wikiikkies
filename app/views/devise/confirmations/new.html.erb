@@ -1,6 +1,12 @@
-<h2>Resend confirmation instructions</h2>
+<% title("Resend", "User") %>
+
+<header>
+  <h1>Resend confirmation instructions</h1>
+</header>
 
 <%= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+  <%= devise_error_messages! %>
+
   <%= f.error_notification %>
   <%= f.full_error :confirmation_token %>
 

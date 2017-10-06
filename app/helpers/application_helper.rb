@@ -1,3 +1,4 @@
+# Call by forms to set browser tab title
 module ApplicationHelper
   def title(*parts)
     unless parts.empty?

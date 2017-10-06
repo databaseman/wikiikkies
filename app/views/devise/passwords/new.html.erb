@@ -1,7 +1,12 @@
-<h2>Forgot your password?</h2>
+<% title("Forgot Password", "User") %>
+
+<header>
+  <h1>Forgot your password?</h1>
+</header>
+
 
 <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= f.error_notification %>
+  <%= devise_error_messages! %>
 
   <div class="form-inputs">
     <%= f.input :email, required: true, autofocus: true %>
