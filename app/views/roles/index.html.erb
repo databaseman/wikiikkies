@@ -1,0 +1,12 @@
+<header>
+  <h1>Roles</h1>
+  <ul class="actions">
+    <%= link_to "New Role", new_role_path, class: "new" %>
+  </ul>
+</header>
+
+<div id="roles">
+  <% @roles.each do |role| %>
+    <h2><%= link_to role.name, role %></h2>
+  <% end %>
+</div>
