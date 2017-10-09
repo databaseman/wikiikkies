@@ -71,6 +71,6 @@ before_action :set_post, only: [:show, :edit, :update, :destroy]
   end
 
   def post_params
-    params.require(:post).permit(:title, :body)
+    params.require(:post).permit(:title, :body)  #Seccurity. Allow only these fields to be updated/entered
   end
 end
