@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
+  get 'users/index'
+  get 'users/show'
+
   devise_for :users
-  root "posts#index" # defines a route for "/" to point at the index action of the PostsController
+
+  root "posts#index"
+
   resources :posts
   resources :roles
+
 end

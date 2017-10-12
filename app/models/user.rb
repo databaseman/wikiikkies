@@ -4,6 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :secure_validatable
 
+  has_many :assignments
+  has_many :roles, through: :assignments
+
   validates :name,  presence: true, length: { maximum: 50 }
   validates :password, presence: true, length: { minimum: 8 }, allow_blank: true #blank for when not changing password
 

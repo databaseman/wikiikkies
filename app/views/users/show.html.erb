@@ -1,0 +1,13 @@
+<!--title() is defined in application_helper.rb format-->
+<% title(@user.email, "User") %>
+<header>
+  <h1><%= @user.email %></h1>
+  <ul class="actions">
+    <li><%= link_to "Delete User", user_path(@user), method: :delete,
+            data: { confirm: "Are you sure you want to delete this user?" },
+            class: "delete"
+        %>
+    </li>
+  </ul>
+</header>
+<p><%= @user.name %></p>
