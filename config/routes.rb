@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'users/index'
-  get 'users/show'
 
   devise_for :users
 
@@ -8,5 +6,6 @@ Rails.application.routes.draw do
 
   resources :posts
   resources :roles
+  resources :users
 
 end
