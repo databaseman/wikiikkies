@@ -30,6 +30,7 @@
         </div>
         <div class="collapse navbar-collapse" id="collapse">
           <ul class="nav navbar-nav">
+
             <% if user_signed_in? %>
               <div class="navbar-right">
                 <p class="navbar-text">
@@ -46,6 +47,7 @@
                 </ul>
               </div>
             <% end %>
+
             <li class="<%= "active" if current_page?("/") %>">
               <%= link_to "Home", root_path %>
             </li>
@@ -56,7 +58,6 @@
               <li class="<%= "active" if current_page?("/users/sign_in") %>">
                 <%= link_to "Sign in", new_user_session_path %>
               </li>
-
             <% end %>
           </ul>
         </div>

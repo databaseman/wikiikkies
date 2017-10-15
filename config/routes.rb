@@ -5,7 +5,10 @@ Rails.application.routes.draw do
   root "posts#index"
 
   resources :posts
-  resources :roles
-  resources :users
 
+  resources :users do
+     resources :roles do
+       resources :assignments
+     end
+   end
 end
