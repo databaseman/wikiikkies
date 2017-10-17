@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-
   devise_for :users
+  match 'users/:id' => 'users#destroy', :via => :delete, :as => :admin_destroy_user
 
   root "posts#index"
 
@@ -10,5 +10,6 @@ Rails.application.routes.draw do
      resources :roles do
        resources :assignments
      end
-   end
+  end
+
 end

@@ -3,8 +3,16 @@
   <h1>Users</h1>
 </header>
 
-<div id="users">
-  <% @users.each do |user| %>
-    <h2><%= link_to user.email, user %></h2>
-  <% end %>
+<div class="table table-responsive">
+    <table class="table">
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.name+" ("+user.email+")" %></td>
+          <td>
+            <%= link_to "Delete", admin_destroy_user_path(user), method: :delete, class: "btn btn-danger", data: { confirm: "You sure?" } %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
 </div>
+<%= will_paginate %>
