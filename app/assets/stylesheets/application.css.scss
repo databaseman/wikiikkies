@@ -2,6 +2,8 @@
 @import "bootstrap";
 @import "font-awesome";
 @import "posts";
+@import "responsive";
+@import "admin/application";
 
 header {
   @extend .page-header;
