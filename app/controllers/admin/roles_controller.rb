@@ -1,15 +1,19 @@
-class PostsController < ApplicationController
-before_action :authenticate_user!
-before_action :set_post, only: [:show, :edit, :update, :destroy]
+class Admin::RolesController < Admin::ApplicationController
+  before_action :set_role, only: [:show, :edit, :update, :destroy]
 
   def index
-    @posts=Post.all
+    @roles=Role.all
   end
 
-  def new #create an object. A post must belong to a user
-    @post = current_user.posts.build #build set foreign key user_id automatically.
+  def show
   end
 
+  def edit
+  end
+
+  def new #create an object & database record
+    @role = Role.new
+  end
   #render vs redirect_to
   #-----------------------
   #render will render a particular view using the instance variables available in the action.
@@ -30,48 +34,43 @@ before_action :set_post, only: [:show, :edit, :update, :destroy]
   #flash.now flash messages display on the current page
 
   def create #create an object & database record
-    @post = current_user.posts.build(post_params) #build set foreign key user_id automatically. rest set through post_params
-    if @post.save
-      flash[:notice] = "Post has been created."
-      redirect_to @post  #rails knows to goto post show page. You can also specify "redirect_to :action => :show"
+    @role = Role.new(role_params)
+    if @role.save
+      flash[:notice] = "Role has been created."
+      redirect_to admin_roles_path  #rails knows to goto role show page. You can also specify "redirect_to :action => :show"
     else
-      flash.now[:alert] = "Post has not been created."
+      flash.now[:alert] = "Role has not been created."
       render "new"
     end
   end
 
-  def show
-  end
-
-  def edit
-  end
-
   def update
-    if @post.update(post_params)
-      flash[:notice] = "Post has been updated."
-      redirect_to @post
+    if @role.update(role_params)
+      flash[:notice] = "Role has been updated."
+      redirect_to admin_roles_path
     else
-      flash.now[:alert] = "Post has not been updated."
+      flash.now[:alert] = "Role has not been updated."
       render "edit"
     end
   end
 
   def destroy
-    @post.destroy
-    flash[:notice] = "Post has been deleted."
-    redirect_to posts_path
+    @role.destroy
+    flash[:notice] = "Role has been deleted."
+    redirect_to admin_roles_path
   end
 
   private
 
-  def set_post
-    @post = Post.find(params[:id])
+  def set_role
+    @role = Role.find(params[:id])
     rescue ActiveRecord::RecordNotFound
-    flash[:alert] = "The post you were looking for could not be found."
-    redirect_to post_path
+    flash[:alert] = "The role you were looking for could not be found."
+    redirect_to admin_roles_path
   end
 
-  def post_params
-    params.require(:post).permit(:title, :body, :private )  #Seccurity. Allow only these fields to be updated/entered
+  def role_params
+    params.require(:role).permit(:name, :description) #Seccurity. Allow only these fields to be updated/entered
   end
+
 end

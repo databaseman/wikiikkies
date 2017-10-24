@@ -1,0 +1,14 @@
+<!--title() is defined in application_helper.rb format-->
+<% title(@role.name, "Role") %>
+<header>
+  <h1><%= @role.name %></h1>
+  <ul class="actions">
+    <li><%= link_to "Edit Role", edit_admin_role_path(@role), class: "edit" %></li>
+    <li><%= link_to "Delete Role", admin_role_path(@role), method: :delete,
+            data: { confirm: "Are you sure you want to delete this role?" },
+            class: "delete"
+        %>
+    </li>
+  </ul>
+</header>
+<p><%= @role.description %></p>
