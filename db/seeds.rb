@@ -32,7 +32,8 @@ Role.create!(name:"admin", description: "Administrator. Do almost everything.")
 end
 
 # Standard user can't create post. These could be left over when downgrade from premium.
-users = User.where( "email LIKE ?", 'standard%' ).take(6)
+# When downgrade, user still have ability to edit and delete their own posts
+users = User.where( "email LIKE ?", 'standard%' ).take(2)
 4.times do
   users.each { |user| user.posts.create!(title: Faker::Lorem.sentence(1), body: Faker::Lorem.sentence(5) ) }
 end
