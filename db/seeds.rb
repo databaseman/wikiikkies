@@ -16,8 +16,11 @@ Role.delete_all
 Role.create!(name:"premium", description: "Paid. Create & Update public and private posts. Ability to collaborate.")
 Role.create!(name:"admin", description: "Administrator. Do almost everything.")
 
-# create standard users
+#####################################################################
+#             Standard users
 #User with no role assigned are standard users; so no need to assign any role
+#####################################################################
+
 6.times do |n|
    name  = Faker::Name.name
    email = "standard#{n+1}@yahoo.com"
@@ -28,7 +31,16 @@ Role.create!(name:"admin", description: "Administrator. Do almost everything.")
                 password_confirmation: password )
 end
 
-# create premium users
+# Standard user can't create post. These could be left over when downgrade from premium.
+users = User.where( "email LIKE ?", 'standard%' ).take(6)
+4.times do
+  users.each { |user| user.posts.create!(title: Faker::Lorem.sentence(1), body: Faker::Lorem.sentence(5) ) }
+end
+
+#####################################################################
+#           Premium users
+#####################################################################
+
 6.times do |n|
    name  = Faker::Name.name
    email = "premium#{n+1}@yahoo.com"
@@ -48,7 +60,35 @@ users = User.where( "email LIKE ?", 'premium%' )
 role = Role.where( name: 'premium').first
 users.each { |user| Assignment.create!( user: user, role: role) }
 
-# Create Admin users
+# Premium users Public Microposts
+users = User.where( "email LIKE ?", 'premium%' ).take(6)
+4.times do
+  users.each { |user| user.posts.create!(title: Faker::Lorem.sentence(1), body: Faker::Lorem.sentence(5) ) }
+end
+
+# Premium users Private Microposts
+users = User.where( "email LIKE ?", 'premium%' ).take(6)
+4.times do
+  users.each { |user| user.posts.create!(title: Faker::Lorem.sentence(1), body: Faker::Lorem.sentence(5), private: true ) }
+end
+
+# Premium users Collaboratorating on private posts belonging to other Premium users.
+users = User.where( "email LIKE ?", 'premium%' ).take(2)
+users.each do |user|
+  post=Post.where.not( user: user, private: false).take(2)
+  post.each { |post| Collaborator.create!( user: user, post: post ) }
+end
+
+# Standard users Collaboratorating on private posts belonging to other Premium users.
+users = User.where( "email LIKE ?", 'standard%' ).take(2)
+users.each do |user|
+  post=Post.where.not( user: user, private: false).take(2)
+  post.each { |post| Collaborator.create!( user: user, post: post ) }
+end
+
+#####################################################################
+#             Create Admin users
+#####################################################################
 name  = "admin"
 email = "admin@yahoo.com"
 password = "Password1"
@@ -66,3 +106,5 @@ puts "Seed finished"
 puts "#{Role.count} roles created"
 puts "#{User.count} users created"
 puts "#{Assignment.count} roles assigned"
+puts "#{Post.count} posts created"
+puts "#{Collaborator.count} collaborators created"

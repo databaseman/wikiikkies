@@ -5,6 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable, :secure_validatable
 
   has_many :posts, dependent: :destroy
+  has_many :collaborators
+  has_many :post_collaborations, through: :collaborators, source: :post
   has_many :assignments
   has_many :roles, through: :assignments #declared assigments method when calling @user.roles.assigments.build returns array of assigments
 

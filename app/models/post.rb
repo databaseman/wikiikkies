@@ -4,7 +4,8 @@ class Post < ApplicationRecord
   has_many   :collaborators, dependent: :destroy
   has_many   :user_collaborators, through: :collaborators, source: :user
 
-  default_scope { order(updated_at: :desc) }
+  #default_scope { order(updated_at: :desc) }
+  default_scope { order(title: :asc) }
 
   validates :title, presence: true, length: { maximum: 70 }
 end

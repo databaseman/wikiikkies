@@ -1,8 +1,10 @@
 <header>
   <h1>Posts</h1>
-  <ul class="actions">
-    <%= link_to "New Post", new_post_path, class: "new" %>
-  </ul>
+  <% if policy(current_user).premium? -%>
+    <ul class="actions">
+      <%= link_to "New Post", new_post_path, class: "new" %>
+    </ul>
+  <% end %>
 </header>
 
 <div id="posts">
@@ -10,3 +12,4 @@
     <h2><%= link_to post.title, post %></h2>
   <% end %>
 </div>
+ <%= will_paginate %>

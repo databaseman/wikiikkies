@@ -1,9 +1,13 @@
+#
+# Post must belongs to a user, but other people can do everything else with the post,
+# thus only new and create needs to be associated with a post.
+#
 class PostsController < ApplicationController
 before_action :authenticate_user!
 before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def index
-    @posts=Post.all
+    @posts=policy_scope(Post).paginate(page: params[:page], per_page: 10)
   end
 
   def new #create an object. A post must belong to a user
@@ -30,6 +34,7 @@ before_action :set_post, only: [:show, :edit, :update, :destroy]
   #flash.now flash messages display on the current page
 
   def create #create an object & database record
+    authorize @post
     @post = current_user.posts.build(post_params) #build set foreign key user_id automatically. rest set through post_params
     if @post.save
       flash[:notice] = "Post has been created."
@@ -57,6 +62,7 @@ before_action :set_post, only: [:show, :edit, :update, :destroy]
   end
 
   def destroy
+    authorize @post
     @post.destroy
     flash[:notice] = "Post has been deleted."
     redirect_to posts_path
@@ -66,6 +72,7 @@ before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def set_post
     @post = Post.find(params[:id])
+    authorize @post
     rescue ActiveRecord::RecordNotFound
     flash[:alert] = "The post you were looking for could not be found."
     redirect_to post_path

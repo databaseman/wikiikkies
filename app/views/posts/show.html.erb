@@ -2,13 +2,22 @@
 <% title(@post.title, "Post") %>
 <header>
   <h1><%= @post.title %></h1>
+  <h4>
+    <p><strong>Submitted <%= time_ago_in_words(@post.created_at) %> ago by <%= @post.user.name %> (<%= @post.user.email %>)</strong><p>
+    <p>Updated <%=time_ago_in_words(@post.updated_at) %> ago</p><br>
+  </h4>
+
   <ul class="actions">
-    <li><%= link_to "Edit Post", edit_post_path(@post), class: "edit" %></li>
-    <li><%= link_to "Delete Post", post_path(@post), method: :delete,
-            data: { confirm: "Are you sure you want to delete this post?" },
-            class: "delete"
-        %>
-    </li>
+    <% if policy(@post).update? -%>
+      <li><%= link_to "Edit Post", edit_post_path(@post), class: "edit" %></li>
+    <% end %>
+    <% if policy(@post).destroy? -%>
+      <li><%= link_to "Delete Post", post_path(@post), method: :delete,
+              data: { confirm: "Are you sure you want to delete this post?" },
+              class: "delete"
+          %>
+      </li>
+      <% end %>
   </ul>
 </header>
 <p><%= @post.body %></p>

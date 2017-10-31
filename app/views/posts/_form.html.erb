@@ -1,7 +1,9 @@
 <%= simple_form_for(post) do |f| %>
   <%= f.input :title %>
   <%= f.input :body %>
-  <%= f.input :private, inline_lable: 'Private Lable', as: :boolean, checked_value: true, unchecked_value: false %>
-
+  <!-- Only premium owner or admin can change post privacy -->
+  <% if policy(@post).checkbox? -%>
+    <%= f.input :private, inline_lable: 'Private Lable', as: :boolean, checked_value: true, unchecked_value: false %>
+  <% end %>
   <%= f.button :submit, class: "btn-primary" %>
 <% end %>
