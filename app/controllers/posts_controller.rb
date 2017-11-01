@@ -3,8 +3,8 @@
 # thus only new and create needs to be associated with a post.
 #
 class PostsController < ApplicationController
-before_action :authenticate_user!
-before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def index
     @posts=policy_scope(Post).paginate(page: params[:page], per_page: 10)
@@ -67,6 +67,12 @@ before_action :set_post, only: [:show, :edit, :update, :destroy]
     flash[:notice] = "Post has been deleted."
     redirect_to posts_path
   end
+
+  def collaborate
+     @post = Post.find(params[:id])
+     debugger
+     authorize @post
+   end
 
   private
 

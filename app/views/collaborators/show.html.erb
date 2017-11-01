@@ -1,0 +1,24 @@
+<% title(@post.title, "Collaborators") %>
+<header>
+  <h1> Add / Remove Collaborators </h1>
+</header>
+<h2><strong>Title: <%= @post.title %></strong></h2>
+
+<div class="table table-responsive">
+  <table class="table">
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= "#{user.name}( #{user.email} )" %></td>
+        <td>
+          <% if @post.user_collaborators.include?(user) %>
+            <% collaborator = @post.collaborators.where(user_id: user.id).first %>
+            <%= link_to "Remove", [@post, collaborator], method: :delete, class: "delete" %>
+          <% else %>
+            <%= link_to "Add", post_collaborators_path(@post, user_id: user.id), method: :post, class: "add" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+<%= will_paginate @users %>

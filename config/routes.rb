@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'collaborators/show'
+
   authenticated :user do
    root 'posts#index', as: :authenticated_root
   end

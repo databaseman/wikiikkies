@@ -19,7 +19,7 @@
       </li>
       <% end %>
       <% if policy(@post).collaborate? -%>
-        <%= link_to "Collaboration", post_collaborator_path(@post), class: "collaborate" %>
+        <%= link_to "Collaborate", post_collaborator_path(@post), class: "collaborate" %>
       <% end -%>
   </ul>
 </header>

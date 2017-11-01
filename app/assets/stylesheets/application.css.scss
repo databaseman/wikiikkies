@@ -43,19 +43,27 @@ ul.actions {
   @extend .list-inline;
 }
 
-a.new, a.edit, a.delete, a.collaborate {
+a.add, a.new, a.edit, a.delete, a.collaborate {
   @extend .btn;
   &:before {
     font-family: "FontAwesome";
     padding-right: 0.5em;
     }
 }
+a.add {
+  @extend .btn-success;
+  &:before {
+    @extend .fa-plus;
+  }
+}
+
 a.new {
   @extend .btn-success;
   &:before {
     @extend .fa-plus;
   }
 }
+
 a.edit {
   @extend .btn-primary;
   &:before {
@@ -87,6 +95,14 @@ form {
 }
 body {
   padding-top: 70px;
+}
+
+.center {
+  text-align: center;
+}
+
+.center h1 {
+  margin-bottom: 10px;
 }
 
 .mine {
