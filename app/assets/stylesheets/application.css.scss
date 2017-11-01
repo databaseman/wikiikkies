@@ -43,7 +43,7 @@ ul.actions {
   @extend .list-inline;
 }
 
-a.new, a.edit, a.delete {
+a.new, a.edit, a.delete, a.collaborate {
   @extend .btn;
   &:before {
     font-family: "FontAwesome";
@@ -68,6 +68,13 @@ a.delete {
     @extend .fa-trash;
   }
 }
+a.collaborate {
+  @extend .btn-default;
+  &:before {
+    @extend .fa-share-square-o;
+  }
+}
+
 .alert-notice {
   @extend .alert-success;
 }
@@ -80,4 +87,11 @@ form {
 }
 body {
   padding-top: 70px;
+}
+
+.mine {
+  color: green;
+}
+.collaborating {
+  color: purple;
 }

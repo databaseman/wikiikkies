@@ -9,7 +9,13 @@
 
 <div id="posts">
   <% @posts.each do |post| %>
-    <h2><%= link_to post.title, post %></h2>
+    <% if post.user_collaborators.include?(current_user) %>
+      <li><%= link_to post.title, post, class: 'collaborating' %></li>
+    <% elsif (post.user_id == current_user.id) %>
+      <li><%= link_to post.title, post, class: 'mine' %></li>
+    <% else %>
+      <li><%= link_to post.title, post %></li>
+    <% end %>
   <% end %>
 </div>
  <%= will_paginate %>

@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
-before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def index
-    @users=User.paginate(page: params[:page], per_page: 10)
+    @users=policy_scope(User).paginate(page: params[:page], per_page: 10)
   end
 
   def show

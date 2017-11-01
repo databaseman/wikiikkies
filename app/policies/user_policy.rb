@@ -1,7 +1,14 @@
 class UserPolicy < ApplicationPolicy
   class Scope < Scope
-    def resolve
-      scope
+    attr_reader :user, :scope
+
+    def initialize(user, scope)
+      @user = user
+      @scope = scope
+    end
+
+    def resolve 
+      scope.where.not(id: user.id)
     end
   end #Scope
 
