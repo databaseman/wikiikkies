@@ -4,7 +4,9 @@ class CollaboratorsController < ApplicationController
   def show
     @post=Post.find(params[:id])
     authorize @post
-    @users=User.where.not( id: current_user.id ).paginate(page: params[:page], per_page: 10)
+    #@users=User.where.not( id: current_user.id ).paginate(page: params[:page], per_page: 10)
+    @users=User.joins("LEFT OUTER JOIN collaborators ON collaborators.user_id=users.id AND collaborators.post_id=#{@post.id}").
+           select( "users.id, users.name, users.email, collaborators.id cid").paginate(page: params[:page], per_page: 10)
   end
 
   def new
