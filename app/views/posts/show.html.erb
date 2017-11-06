@@ -23,4 +23,4 @@
       <% end -%>
   </ul>
 </header>
-<p><%= @post.body %></p>
+<%= markdown(@post.body) %>
