@@ -5,7 +5,7 @@
 
 <div class="table table-responsive">
     <table class="table">
-      <% @users.each do |user| %>
+      <% @users.for_each do |user| %>
         <tr>
           <td><%= user.name+" ("+user.email+")" %></td>
           <td>
@@ -15,4 +15,10 @@
       <% end %>
     </table>
 </div>
-<%= will_paginate %>
+<br>
+<div class="pagination">
+    <div class="page_info">
+      <%= page_entries_info @users %>
+    </div>
+    <%= will_paginate @users, :container => false %>
+</div>

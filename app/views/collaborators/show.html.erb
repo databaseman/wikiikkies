@@ -8,19 +8,23 @@
   <table class="table">
     <% @users.each do |user| %>
       <tr>
-        <% unless user.id == current_user.id  %>
-          <td><%= "#{user.name}( #{user.email} )" %></td>
-          <td>
-            <% if !user.cid.nil? %>
-              <% collaborator = @post.collaborators.where(user_id: user.id).first %>
-              <%= link_to "Remove", [@post, collaborator], method: :delete, class: "delete" %>
-            <% else %>
-              <%= link_to "Add", post_collaborators_path(@post, user_id: user.id), method: :post, class: "add" %>
-            <% end %>
-          </td>
-        <% end %>
+        <td><%= "#{user.name}( #{user.email} )" %></td>
+        <td>
+          <% if !user.cid.nil? %>
+            <% collaborator = Collaborator.find( user.cid ) %>
+            <%= link_to "Remove", [@post, collaborator], method: :delete, class: "delete" %>
+          <% else %>
+            <%= link_to "Add", post_collaborators_path(@post, user_id: user.id), method: :post, class: "add" %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </table>
 </div>
-<%= will_paginate @users%>
+<br>
+<div class="pagination">
+    <div class="page_info">
+      <%= page_entries_info @users %>
+    </div>
+    <%= will_paginate @users, :container => false %>
+</div>
