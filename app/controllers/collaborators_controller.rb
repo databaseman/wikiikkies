@@ -5,7 +5,7 @@ class CollaboratorsController < ApplicationController
     @post=Post.find(params[:id])
     authorize @post
     # Grabbing both users and collaborations info now to reduce db query in show.html.erb
-    @users=User.joins("LEFT OUTER JOIN collaborators
+    @usersCollaboration=User.joins("LEFT OUTER JOIN collaborators
                           ON collaborators.user_id=users.id
                           AND collaborators.post_id=#{@post.id}
                         WHERE users.id != #{current_user.id}").
