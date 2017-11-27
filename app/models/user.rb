@@ -25,6 +25,7 @@ class User < ApplicationRecord
 
   def destroy_assignments
     self.assignments.destroy_all
+    self.collaborators.destroy_all
   end
 
 end
