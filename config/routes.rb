@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   get  'about'       => 'welcome#about'
   get  'contact'     => 'welcome#contact'
   get  'help'        => 'welcome#help'
+  get  'downgrade'   => 'charges#downgrade'
+  post 'downgrade'   => 'charges#downgrade_posts'
 
   authenticated :user do
    root 'posts#index', as: :authenticated_root
