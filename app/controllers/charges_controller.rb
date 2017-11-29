@@ -9,12 +9,18 @@ class ChargesController < ApplicationController
     @private_posts = current_user.posts.where(private: true) # User private wiki list
   end
 
-  def downgrade_posts
-    #Change User wikis from private to public and user to standard
-    if ( downgradeUser( current_user ) )
+  def downgrade_user
+    begin
+      ActiveRecord::Base.transaction do
+        premium = Role.where( name: "premium")
+        current_user.assignments.where( role: premium ).destroy_all # Remove premium role assigment
+        current_user.posts.update_all( private: false ) # Set all user posts to public
+        # Remove collaboration on all user's posts
+        Collaborator.where( "post_id in (select id from posts where user_id = ?)", current_user.id ).destroy_all
+      end
       flash[:success] = 'Your account has been downgraded to Standard'
       redirect_to root_path
-    else
+    rescue
       flash.now[:danger] = 'There was an error downgrading your account. Please try again.'
       render :edit # render the new view again
     end
@@ -63,14 +69,5 @@ class ChargesController < ApplicationController
       flash[:danger] = e.message
       redirect_to new_charge_path
   end # create
-
-  private
-
-  def downgradeUser( user )
-    premium = Role.select('id').where( name: "premium").first
-    user.assignments.where( role_id: premium.id ).first.destroy &&
-    user.posts.update_all( private: false ) &&
-    user.posts.collaborators.destroy_all
-  end
 
 end #Class

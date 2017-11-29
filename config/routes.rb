@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
   get 'collaborators/show'
   get 'users/index'
+
   get  'about'       => 'welcome#about'
   get  'contact'     => 'welcome#contact'
   get  'help'        => 'welcome#help'
+
+  #resources :charges
   get  'downgrade'   => 'charges#downgrade'
-  post 'downgrade'   => 'charges#downgrade_posts'
+  post 'downgrade'   => 'charges#downgrade_user'
 
   authenticated :user do
    root 'posts#index', as: :authenticated_root

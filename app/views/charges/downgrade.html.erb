@@ -1,0 +1,18 @@
+<% title(current_user.email, "Charges") %>
+<header>
+  <h1> Downgrade Account </h1>
+</header>
+<h5 style="color: red">Warning! The following PRIVATE posts will be converted to PUBLIC after you switch back to Standard account.</h5>
+
+<div>
+  <% @private_posts.each do |post| %>
+    <div class="media">
+      <div class="media-body">
+        <h4 class="media-heading">
+          <%= link_to post.title, post %>
+        </h4>
+      </div>
+    </div>
+  <% end %>
+</div>
+<%= button_to "Downgrade", action: "downgrade_user" %>

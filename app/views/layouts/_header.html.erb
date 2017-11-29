@@ -37,8 +37,6 @@
                   <li><%= link_to "Cancel Account", admin_destroy_user_path(current_user), method: :delete, class: 'btn btn-danger', data: {confirm: 'Are you sure you want to remove your account?'} %></li>
                   <% if current_user.role?("premium") %>
                     <li><%= link_to "Downgrade", downgrade_path %></li>
-                  <% elsif !current_user.role?("admin") %>
-                    <li><%= link_to "Upgrade", new_charge_path %></li>
                   <% end %>
                 </ul>
               </li>

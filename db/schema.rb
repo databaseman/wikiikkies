@@ -10,15 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171024174553) do
+ActiveRecord::Schema.define(version: 20171129182636) do
 
   create_table "assignments", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "role_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["role_id"], name: "index_assignments_on_role_id"
-    t.index ["user_id"], name: "index_assignments_on_user_id"
+    t.index ["user_id", "role_id"], name: "index_assignments_on_user_id_and_role_id", unique: true
   end
 
   create_table "collaborators", force: :cascade do |t|
