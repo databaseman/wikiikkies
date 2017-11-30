@@ -1,12 +1,14 @@
 Rails.application.routes.draw do
   get 'collaborators/show'
   get 'users/index'
-
+  get 'users/show'
+  
   get  'about'       => 'welcome#about'
   get  'contact'     => 'welcome#contact'
   get  'help'        => 'welcome#help'
 
   #resources :charges
+  get  'upgrade'   => 'charges#upgrade'
   get  'downgrade'   => 'charges#downgrade'
   post 'downgrade'   => 'charges#downgrade_user'
 
