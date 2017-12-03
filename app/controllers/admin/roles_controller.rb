@@ -1,4 +1,5 @@
 class Admin::RolesController < Admin::ApplicationController
+  before_action :authenticate_user!
   before_action :set_role, only: [:show, :edit, :update, :destroy]
 
   def index

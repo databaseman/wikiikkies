@@ -24,7 +24,10 @@
             </ul>
             <% if current_user.role?("admin") %>
               <ul class="nav navbar-nav">
-                <li><%= link_to "Users", users_path %></li>
+                <li><%= link_to "Users", users_index_path %></li>
+              </ul>
+              <ul class="nav navbar-nav">
+                <li><%= link_to "Roles", admin_roles_path %></li>
               </ul>
             <% end %>
             <ul class="nav navbar-nav">
@@ -34,7 +37,7 @@
                 </a>
                 <ul class="dropdown-menu">
                   <li><%= link_to "Profile", edit_user_registration_path %></li>
-                  <li><%= link_to "Cancel Account", admin_destroy_user_path(current_user), method: :delete, class: 'btn btn-danger', data: {confirm: 'Are you sure you want to remove your account?'} %></li>
+                  <li><%= link_to "Cancel Account", admin_destroy_user_path(current_user), method: :delete, class: 'delete', data: {confirm: 'Are you sure you want to remove your account?'} %></li>
                   <% if current_user.role?("premium") %>
                     <li><%= link_to "Downgrade", downgrade_path %></li>
                   <% elsif !policy(current_user).premium? %>

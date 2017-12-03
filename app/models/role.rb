@@ -8,8 +8,4 @@ class Role < ApplicationRecord
   def destroy_assignments
     self.assignments.destroy_all
   end
-
-  def convert_posts
-    users=User.all.roles.where(name: self.name)
-  end
 end

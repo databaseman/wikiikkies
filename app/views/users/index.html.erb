@@ -9,7 +9,7 @@
         <tr>
           <td><%= user.name+" ("+user.email+")" %></td>
           <td>
-            <%= link_to "Delete", admin_destroy_user_path(user), method: :delete, class: "btn btn-danger", data: { confirm: "You sure?" } %>
+            <%= link_to "Delete", admin_destroy_user_path(user), method: :delete, class: "delete", data: { confirm: "You sure?" } %>
           </td>
         </tr>
       <% end %>
