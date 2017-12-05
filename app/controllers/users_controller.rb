@@ -1,18 +1,20 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_admin!, only: [:index]
+  before_action :set_user, only: [:destroy]
 
   def index
     @users=policy_scope(User).paginate(page: params[:page], per_page: 10)
   end
 
-  def show
-  end
-
   def destroy
     @user.destroy
     flash[:notice] = "User #{@user.name} #{@user.email} has been deleted."
-    redirect_to users_index_path
+    if current_user.role?("admin")
+      redirect_to users_index_path
+    else
+      redirect_to root_path
+    end
   end
 
   private
@@ -27,4 +29,11 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :email)  #Seccurity. Allow only these fields to be updated/entered
   end
+
+  def authorize_admin!
+    unless current_user.role?("admin")
+      redirect_to root_path, alert: "You must be an admin to do that."
+    end
+  end
+
 end

@@ -4,7 +4,7 @@
 #
 class PostsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :collaborate]
 
   def index
     @posts=policy_scope(Post).paginate(page: params[:page], per_page: 10)
@@ -34,7 +34,6 @@ class PostsController < ApplicationController
   #flash.now flash messages display on the current page
 
   def create #create an object & database record
-    authorize @post
     @post = current_user.posts.build(post_params) #build set foreign key user_id automatically. rest set through post_params
     if @post.save
       flash[:notice] = "Post has been created."
@@ -62,17 +61,10 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    authorize @post
     @post.destroy
     flash[:notice] = "Post has been deleted."
     redirect_to posts_path
   end
-
-  def collaborate
-     @post = Post.find(params[:id])
-     debugger
-     authorize @post
-   end
 
   private
 
