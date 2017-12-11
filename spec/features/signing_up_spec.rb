@@ -1,8 +1,12 @@
 require "rails_helper"
 RSpec.feature "Users sign up" do
-  scenario "when providing valid details" do
+
+  before do
     visit "/"
     click_link "Sign up"
+  end
+
+  scenario "Create Standard user: when providing valid details" do
     fill_in "Name", with: "testuser1"
     fill_in "Email", with: "test@yahoo.com"
     fill_in "user_password", with: "Password1"
@@ -11,9 +15,7 @@ RSpec.feature "Users sign up" do
     expect(page).to have_content("You have signed up successfully.")
   end
 
-  scenario "when providing duplicate email" do
-    visit "/"
-    click_link "Sign up"
+  scenario "Create Standard user: when providing duplicate email" do
     fill_in "Name", with: "testuser1"
     fill_in "Email", with: "test@yahoo.com"
     fill_in "user_password", with: "Password1"
@@ -32,9 +34,7 @@ RSpec.feature "Users sign up" do
     expect(page).to have_content("Email has already been taken")
   end
 
-  scenario "when providing invalid name" do
-    visit "/"
-    click_link "Sign up"
+  scenario "Create Standard user: when providing invalid name" do
     fill_in "Name", with: ""
     fill_in "Email", with: "test@yahoo.com"
     fill_in "user_password", with: "Password1"
@@ -43,9 +43,7 @@ RSpec.feature "Users sign up" do
     expect(page).to have_content("can't be blank")
   end
 
-  scenario "when providing invalid email" do
-    visit "/"
-    click_link "Sign up"
+  scenario "Create Standard user: when providing invalid email" do
     fill_in "Name", with: "tests"
     fill_in "Email", with: "test@.com"
     fill_in "user_password", with: "Password1"
@@ -54,9 +52,7 @@ RSpec.feature "Users sign up" do
     expect(page).to have_content("is invalid")
   end
 
-  scenario "when providing invalid password" do
-    visit "/"
-    click_link "Sign up"
+  scenario "Create Standard user: when providing invalid password" do
     fill_in "Name", with: "tests"
     fill_in "Email", with: "test@yahoo.com"
     fill_in "user_password", with: "password1"
@@ -66,9 +62,7 @@ RSpec.feature "Users sign up" do
     expect(page).to have_content("8 characters minimum")
   end
 
-  scenario "when providing short password" do
-    visit "/"
-    click_link "Sign up"
+  scenario "Create Standard user: when providing short password" do
     fill_in "Name", with: "tests"
     fill_in "Email", with: "test@yahoo.com"
     fill_in "user_password", with: "Pasw0rd"
@@ -76,7 +70,5 @@ RSpec.feature "Users sign up" do
     click_button "Sign up"
     expect(page).to have_content("8 characters minimum")
   end
-
-
 
 end
