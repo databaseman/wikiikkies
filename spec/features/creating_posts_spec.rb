@@ -1,7 +1,12 @@
 require "rails_helper"
 RSpec.feature "Create new post" do
 
+  let(:user) { FactoryGirl.create(:user) }
+
   before do
+    login_as(user)
+    premium=Role.create!(name:"premium", description: "Paid. Create & Update public and private posts. Ability to collaborate.")
+    Assignment.create!( user: user, role: premium)
     visit "/"
     click_link "New Post"
   end
