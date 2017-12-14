@@ -7,7 +7,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy, :collaborate]
 
   def index
-    @posts=policy_scope(Post).paginate(page: params[:page], per_page: 10)
+    @posts=policy_scope(Post).sort_by{ |post| post.title }.paginate(page: params[:page], per_page: 10)
   end
 
   def new #create an object. A post must belong to a user
