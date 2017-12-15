@@ -32,7 +32,7 @@ RSpec.feature "Users editing posts" do
     Assignment.create!( user: @user, role: @premium)
     visit "/"
     click_link "New Post"
-    fill_in "Title", with: "@Sublime Text 5"  #using @ to make sure it is on first page
+    fill_in "Title", with: "Sublime Text 5"
     fill_in "Body", with: "A text editor for everyone"
     page.check "Private"
     click_button "Create Post"
@@ -44,7 +44,7 @@ RSpec.feature "Users editing posts" do
     login_as(user)
     Assignment.create!( user: user, role: @premium)
     visit "/"
-    expect(page).to have_no_link('@Sublime Text 5')
+    expect(page).to have_no_link('Sublime Text 5')
   end
 
   scenario "Admin user against own public post" do
@@ -71,7 +71,7 @@ RSpec.feature "Users editing posts" do
     Assignment.create!( user: @user, role: @premium)
     visit "/"
     click_link "New Post"
-    fill_in "Title", with: "@Sublime Text 5"  #using @ to make sure it is on first page
+    fill_in "Title", with: "Sublime Text 5"
     fill_in "Body", with: "A text editor for everyone"
     page.check "Private"
     click_button "Create Post"
@@ -83,14 +83,14 @@ RSpec.feature "Users editing posts" do
     login_as(user)
     Assignment.create!( user: user, role: @admin)
     visit "/"
-    expect(page).to have_link('@Sublime Text 5')
+    expect(page).to have_link('Sublime Text 5')
   end
 
   scenario "Standard user against public post " do
     Assignment.create!( user: @user, role: @premium)
     visit "/"
     click_link "New Post"
-    fill_in "Title", with: "@Sublime Text 5"  #using @ to make sure it is on first page
+    fill_in "Title", with: "Sublime Text 5"
     fill_in "Body", with: "A text editor for everyone"
     click_button "Create Post"
     expect(page).to have_content "Post has been created"
@@ -100,7 +100,7 @@ RSpec.feature "Users editing posts" do
     user = FactoryGirl.create(:user)
     login_as(user)
     visit "/"
-    click_link "@Sublime Text 5"
+    click_link "Sublime Text 5"
     click_link "Edit Post"
     fill_in "Title", with: "@Sublime Text 5B"
     click_button "Update Post"
@@ -116,7 +116,7 @@ RSpec.feature "Users editing posts" do
     Assignment.create!( user: @user, role: @premium)
     visit "/"
     click_link "New Post"
-    fill_in "Title", with: "@Sublime Text 5"  #using @ to make sure it is on first page
+    fill_in "Title", with: "@Sublime Text 5"
     fill_in "Body", with: "A text editor for everyone"
     page.check "Private"
     click_button "Create Post"
