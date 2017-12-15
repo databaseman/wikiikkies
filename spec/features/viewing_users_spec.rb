@@ -12,7 +12,8 @@ RSpec.feature "Users viewing" do
     admin_user = FactoryGirl.create(:user)
     Assignment.create!( user: admin_user, role: @admin)
     login_as(admin_user)
-    visit "/users/index"
+    visit "/"
+    click_link "Users"
     expect(page).to have_content premium_user.name+" ("+premium_user.email+")"
     expect(page).to have_link "Delete"
   end
