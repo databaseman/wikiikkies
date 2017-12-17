@@ -130,4 +130,33 @@ RSpec.feature "Users editing posts" do
     expect(page).to have_no_link('@Sublime Text 5')
   end
 
+  scenario "Standard user against collaborated private post " do
+    standard_user = FactoryGirl.create(:user)
+    Assignment.create!( user: @user, role: @premium)
+    visit "/"
+    click_link "New Post"
+    fill_in "Title", with: "@Sublime Text 5"
+    fill_in "Body", with: "A text editor for everyone"
+    page.check "Private"
+    click_button "Create Post"
+    expect(page).to have_content "Post has been created"
+    click_link "Collaborate"
+    click_link "Add"
+    click_link "Sign Out"
+    expect(page).to have_content "Signed out successfully."
+
+    login_as(standard_user)
+    visit "/"
+    click_link '@Sublime Text 5'
+    click_link "Edit Post"
+    fill_in "Title", with: "@Sublime Text 5B"
+    click_button "Update Post"
+
+    post = Post.find_by(title: "@Sublime Text 5B")
+    expect(page.current_url).to eq post_url(post) # make sure this is Show action in post controller
+
+    expect(page).to have_content "Post has been updated."
+    expect(page).to have_content "@Sublime Text 5B"
+  end
+  
 end

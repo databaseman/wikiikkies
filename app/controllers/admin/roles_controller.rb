@@ -3,7 +3,7 @@ class Admin::RolesController < Admin::ApplicationController
   before_action :set_role, only: [:show, :edit, :update, :destroy]
 
   def index
-    @roles=Role.all
+    @roles=Role.all.sort_by{ |role| role.name }.paginate(page: params[:page], per_page: 10)
   end
 
   def show
@@ -56,8 +56,13 @@ class Admin::RolesController < Admin::ApplicationController
   end
 
   def destroy
-    @role.destroy
-    flash[:notice] = "Role has been deleted."
+    #Can not delete if assigned to a user.
+    if Assignment.exists?(role_id: @role)
+      flash[:notice] = "Can not remove role. Users are currently assigned to this role."
+    else
+      @role.destroy
+      flash[:notice] = "Role has been deleted."
+    end
     redirect_to admin_roles_path
   end
 

@@ -9,3 +9,10 @@
     <h2><%= link_to role.name, [:admin, role] %></h2>
   <% end %>
 </div>
+<br>
+<div class="pagination">
+    <div class="page_info">
+      <%= page_entries_info @roles %>
+    </div>
+    <%= will_paginate @roles, :container => false %>
+</div>
