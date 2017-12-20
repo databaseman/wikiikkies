@@ -27,6 +27,7 @@ RSpec.feature "Delete role" do
     click_link "testrole"
     click_link "Delete Role"
     expect(page).to have_content "Role has been deleted"
+    expect(page.current_url).to eq admin_roles_url
   end
 
 end

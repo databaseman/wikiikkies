@@ -20,6 +20,7 @@ RSpec.feature "Deleting posts" do
     click_link "Sublime Text 3"
     click_link "Delete Post"
     expect(page).to have_content "Post has been deleted."
+    expect(page.current_url).to eq posts_url
     expect(page).to have_no_link "Sublime Text 3"
   end
 

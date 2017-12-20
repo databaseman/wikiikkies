@@ -17,6 +17,7 @@ RSpec.feature "Create new role" do
     fill_in "role_description", with: "Free. Can only view/update public posts"
     click_button "Create Role"
     expect(page).to have_content "Role has been created"
+    expect(page.current_url).to eq admin_roles_url
   end
 
   scenario "when providing invalid attributes" do
