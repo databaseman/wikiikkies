@@ -9,7 +9,7 @@ Assignment.delete_all
 Post.delete_all
 User.delete_all
 Role.delete_all
-
+TITLE_SIZE=70
 
 # create roles.  No role / standard is the default
 # Role.create!(name:"standard", description: "Free. Update public posts only.")
@@ -35,7 +35,7 @@ end
 # When downgrade, user still have ability to edit and delete their own posts
 users = User.where( "email LIKE ?", 'standard%' ).take(2)
 4.times do
-  users.each { |user| user.posts.create!(title: Faker::Lorem.sentence(1), body: Faker::Lorem.sentence(5) ) }
+  users.each { |user| user.posts.create!(title: Faker::Lorem.sentence(1).slice(0,TITLE_SIZE), body: Faker::Lorem.sentence(5) ) }
 end
 
 #####################################################################
@@ -64,13 +64,13 @@ users.each { |user| Assignment.create!( user: user, role: role) }
 # Premium users Public Microposts
 users = User.where( "email LIKE ?", 'premium%' ).take(6)
 4.times do
-  users.each { |user| user.posts.create!(title: Faker::Lorem.sentence(1), body: Faker::Lorem.sentence(5) ) }
+  users.each { |user| user.posts.create!(title: Faker::Lorem.sentence(1).slice(0,TITLE_SIZE), body: Faker::Lorem.sentence(5) ) }
 end
 
 # Premium users Private Microposts
 users = User.where( "email LIKE ?", 'premium%' ).take(6)
 4.times do
-  users.each { |user| user.posts.create!(title: Faker::Lorem.sentence(1), body: Faker::Lorem.sentence(5), private: true ) }
+  users.each { |user| user.posts.create!(title: Faker::Lorem.sentence(1).slice(0,TITLE_SIZE), body: Faker::Lorem.sentence(5), private: true ) }
 end
 
 # Premium users Collaboratorating on private posts belonging to other Premium users.
