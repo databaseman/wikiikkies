@@ -1,0 +1,20 @@
+<header>
+  <h1>Collaboration Posts</h1>
+</header>
+
+<div id="posts">
+  <% @posts.each do |post| %>
+    <% if (post.user_id == current_user.id) %>
+       <li><%= link_to post.title, post, class: 'mine' %></li>
+    <% else %>
+       <li><%= link_to post.title, post, class: 'collaborating' %></li>
+    <% end %>
+  <% end %>
+</div>
+<br>
+<div class="pagination">
+    <div class="page_info">
+      <%= page_entries_info @posts %>
+    </div>
+    <%= will_paginate @posts, :container => false %>
+</div>

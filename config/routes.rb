@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   get 'collaborators/show'
   get 'users/index'
   get 'users/show'
+  get 'posts/owner_index'
+  get 'posts/collaborate_index'
 
   get  'about'       => 'welcome#about'
   get  'contact'     => 'welcome#contact'

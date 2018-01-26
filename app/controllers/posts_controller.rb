@@ -6,12 +6,21 @@ class PostsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_post, only: [:show, :edit, :update, :destroy, :collaborate]
 
-  def index
+  def index #All own, public, and collaborations
     @posts=policy_scope(Post).sort_by{ |post| post.title }.paginate(page: params[:page], per_page: 10)
   end
 
   def new #create an object. A post must belong to a user
     @post = current_user.posts.build #build set foreign key user_id automatically.
+  end
+
+  def owner_index #own only
+    @posts=Post.where("user_id = ?", current_user.id).sort_by{ |post| post.title }.paginate(page: params[:page], per_page: 10)
+  end
+
+  def collaborate_index #Other's & own collaborations
+    @posts=(current_user.post_collaborations + Post.where("user_id = ? AND exists (select 1 from collaborators c where c.post_id=posts.id)", current_user.id ))
+    .sort_by{ |post| post.title }.paginate(page: params[:page], per_page: 10)
   end
 
   #render vs redirect_to

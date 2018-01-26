@@ -17,10 +17,6 @@ class PostPolicy < ApplicationPolicy
     end
   end #class Scope
 
-  def create
-    user.role?("admin") || user.role?("premium")
-  end
-
   # Update if a public post; or owned by this user; or user is
   # part of the collaboration for this post; or an admin
   def update?

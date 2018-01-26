@@ -1,5 +1,5 @@
 <header>
-  <h1>Posts</h1>
+  <h1>Own Posts</h1>
   <% if policy(current_user).premium? -%>
     <ul class="actions">
       <%= link_to "New Post", new_post_path, class: "new" %>
@@ -9,16 +9,7 @@
 
 <div id="posts">
   <% @posts.each do |post| %>
-<!-- if post.user_collaborators.include?(current_user)
-       link_to post.title, post, class: 'collaborating'
- This makes too many calls to db.  won't scaled.  If want to use it, then
- have to modify Pundit scope to include the collaboration information.
--->
-    <% if (post.user_id == current_user.id) %>
        <li><%= link_to post.title, post, class: 'mine' %></li>
-    <% else %>
-       <li><%= link_to post.title, post %></li>
-    <% end %>
   <% end %>
 </div>
 <br>

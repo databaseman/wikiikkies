@@ -10,6 +10,8 @@ Post.delete_all
 User.delete_all
 Role.delete_all
 TITLE_SIZE=70
+NUMBER_OF_USERS=100
+NUMBER_OF_POSTS=10
 
 # create roles.  No role / standard is the default
 # Role.create!(name:"standard", description: "Free. Update public posts only.")
@@ -21,7 +23,7 @@ Role.create!(name:"admin", description: "Administrator. Do almost everything.")
 #User with no role assigned are standard users; so no need to assign any role
 #####################################################################
 
-6.times do |n|
+NUMBER_OF_USERS.times do |n|
    name  = Faker::Name.name
    email = "standard#{n+1}@yahoo.com"
    password = "Password1"
@@ -33,7 +35,7 @@ end
 
 # Standard user can't create post. These could be left over when downgrade from premium.
 # When downgrade, user still have ability to edit and delete their own posts
-users = User.where( "email LIKE ?", 'standard%' ).take(2)
+users = User.where( "email LIKE ?", 'standard%' ).take(15)
 4.times do
   users.each { |user| user.posts.create!(title: Faker::Lorem.sentence(1).slice(0,TITLE_SIZE), body: Faker::Lorem.sentence(5) ) }
 end
@@ -42,7 +44,7 @@ end
 #           Premium users
 #####################################################################
 
-6.times do |n|
+NUMBER_OF_USERS.times do |n|
    name  = Faker::Name.name
    email = "premium#{n+1}@yahoo.com"
    password = "Password1"
@@ -62,28 +64,28 @@ role = Role.where( name: 'premium').first
 users.each { |user| Assignment.create!( user: user, role: role) }
 
 # Premium users Public Microposts
-users = User.where( "email LIKE ?", 'premium%' ).take(6)
-4.times do
+users = User.where( "email LIKE ?", 'premium%' ).take( NUMBER_OF_USERS )
+NUMBER_OF_POSTS.times do
   users.each { |user| user.posts.create!(title: Faker::Lorem.sentence(1).slice(0,TITLE_SIZE), body: Faker::Lorem.sentence(5) ) }
 end
 
 # Premium users Private Microposts
-users = User.where( "email LIKE ?", 'premium%' ).take(6)
-4.times do
+users = User.where( "email LIKE ?", 'premium%' ).take( (NUMBER_OF_USERS * 0.45).round )
+NUMBER_OF_POSTS.times do
   users.each { |user| user.posts.create!(title: Faker::Lorem.sentence(1).slice(0,TITLE_SIZE), body: Faker::Lorem.sentence(5), private: true ) }
 end
 
 # Premium users Collaboratorating on private posts belonging to other Premium users.
-users = User.where( "email LIKE ?", 'premium%' ).take(2)
+users = User.where( "email LIKE ?", 'premium%' ).take((NUMBER_OF_USERS * 0.10).round )
 users.each do |user|
-  post=Post.where.not( user: user, private: false).take(2)
+  post=Post.where.not( user: user, private: false).take(20)
   post.each { |post| Collaborator.create!( user: user, post: post ) }
 end
 
 # Standard users Collaboratorating on private posts belonging to other Premium users.
-users = User.where( "email LIKE ?", 'standard%' ).take(2)
+users = User.where( "email LIKE ?", 'standard%' ).take((NUMBER_OF_USERS * 0.10).round )
 users.each do |user|
-  post=Post.where.not( user: user, private: false).take(2)
+  post=Post.where.not( user: user, private: false).take(20)
   post.each { |post| Collaborator.create!( user: user, post: post ) }
 end
 
