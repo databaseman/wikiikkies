@@ -7,6 +7,11 @@
   <% end %>
 </header>
 
+<%= form_tag(posts_path, method: :get) do %>
+  Post Title <%= text_field_tag :title %>  
+  <%= submit_tag 'Search', name: nil %>
+<% end %>
+<br>
 <div id="posts">
   <% @posts.each do |post| %>
 <!-- if post.user_collaborators.include?(current_user)

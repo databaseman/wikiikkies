@@ -7,7 +7,11 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy, :collaborate]
 
   def index #All own, public, and collaborations
-    @posts=policy_scope(Post).sort_by{ |post| post.title }.paginate(page: params[:page], per_page: 10)
+    if params[:title]
+      @posts = Post.where('title LIKE ?', "%#{params[:title]}%").sort_by{ |post| post.title }.paginate(page: params[:page], per_page: 10)
+    else
+      @posts=policy_scope(Post).sort_by{ |post| post.title }.paginate(page: params[:page], per_page: 10)
+    end
   end
 
   def new #create an object. A post must belong to a user
