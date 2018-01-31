@@ -12,7 +12,11 @@ class PostPolicy < ApplicationPolicy
       if user.role?("admin")
         scope.all
       else #User can only see public or own or collaborated posts
-        scope.where( "private = ? OR user_id = ?", 'f', user.id ) + user.post_collaborations
+        #scope.where( "private = ? OR user_id = ?", 'f', user.id ) + user.post_collaborations <== returns array
+        #we don't want array. We want AR so we can use where and order clause in controller.
+        #have to specified posts.id in exists clause otherwise get wrong result in sqlite.
+        scope.where( "private = ? OR user_id = ?", 'f', user.id )
+        .or( scope.where( "exists (select 1 from collaborators c where c.post_id=posts.id and c.user_id=?)",user.id ) )
       end
     end
   end #class Scope

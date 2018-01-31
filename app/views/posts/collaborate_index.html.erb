@@ -2,6 +2,12 @@
   <h1>Collaboration Posts</h1>
 </header>
 
+<%= form_tag(posts_collaborate_index_path, method: :get) do %>
+  Post Title <%= text_field_tag :title %>
+  <%= submit_tag 'Search', name: nil %>
+<% end %>
+<br>
+
 <div id="posts">
   <% @posts.each do |post| %>
     <% if (post.user_id == current_user.id) %>

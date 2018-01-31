@@ -9,8 +9,9 @@ Assignment.delete_all
 Post.delete_all
 User.delete_all
 Role.delete_all
+Collaborator.delete_all
 TITLE_SIZE=70
-NUMBER_OF_USERS=100
+NUMBER_OF_USERS=50
 NUMBER_OF_POSTS=10
 
 # create roles.  No role / standard is the default

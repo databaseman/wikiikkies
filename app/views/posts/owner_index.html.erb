@@ -7,6 +7,12 @@
   <% end %>
 </header>
 
+<%= form_tag(posts_owner_index_path, method: :get) do %>
+  Post Title <%= text_field_tag :title %>
+  <%= submit_tag 'Search', name: nil %>
+<% end %>
+<br>
+
 <div id="posts">
   <% @posts.each do |post| %>
        <li><%= link_to post.title, post, class: 'mine' %></li>

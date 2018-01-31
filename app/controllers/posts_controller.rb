@@ -7,10 +7,14 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy, :collaborate]
 
   def index #All own, public, and collaborations
+    #Using order clause instead of sort_by will do the sort and 10 records limit on the database side instead of
+    #bringing everything over and sort on the client side.
+    #However, the order clause calls the dbs two extra times: 1 with the same query and another for a select count(*)? for the same predicates. Why?
+    #It is still faster and probably going to scale better that the sort_by.
     if params[:title]
-      @posts = Post.where('title LIKE ?', "%#{params[:title]}%").sort_by{ |post| post.title }.paginate(page: params[:page], per_page: 10)
+      @posts = policy_scope(Post).where('title LIKE ?', "%#{params[:title]}%").order("title").paginate(page: params[:page], per_page: 10)
     else
-      @posts=policy_scope(Post).sort_by{ |post| post.title }.paginate(page: params[:page], per_page: 10)
+      @posts=policy_scope(Post).order("title").paginate(page: params[:page], per_page: 10)
     end
   end
 
@@ -19,12 +23,22 @@ class PostsController < ApplicationController
   end
 
   def owner_index #own only
-    @posts=Post.where("user_id = ?", current_user.id).sort_by{ |post| post.title }.paginate(page: params[:page], per_page: 10)
+    #It calls the database again, using the scope definition and added an AND with the new where clause.
+    if params[:title]
+      @posts = policy_scope(Post).where("user_id=? AND title LIKE ?", current_user.id, "%#{params[:title]}%").order( "title" ).paginate(page: params[:page], per_page: 10)
+    else
+      @posts=policy_scope(Post).where( "user_id = ?", current_user.id ).order("title").paginate(page: params[:page], per_page: 10)
+    end
   end
 
   def collaborate_index #Other's & own collaborations
-    @posts=(current_user.post_collaborations + Post.where("user_id = ? AND exists (select 1 from collaborators c where c.post_id=posts.id)", current_user.id ))
-    .sort_by{ |post| post.title }.paginate(page: params[:page], per_page: 10)
+    if params[:title]
+      @posts = current_user.post_collaborations.where('title LIKE ?', "%#{params[:title]}%").order("title").paginate(page: params[:page], per_page: 10)
+    else
+      @posts=Post.where( "posts.user_id = ? AND exists (select 1 from collaborators c where c.post_id=posts.id)", current_user.id)
+            .or(Post.where( "exists (select 1 from collaborators c where c.post_id=posts.id and c.user_id=?)",current_user.id ))
+            .order("title").paginate(page: params[:page], per_page: 10)
+    end
   end
 
   #render vs redirect_to
