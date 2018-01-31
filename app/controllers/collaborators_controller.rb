@@ -2,7 +2,7 @@ class CollaboratorsController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    @post=Post.find(params[:id])
+    @post=policy_scope(Post).find(params[:id])
     authorize @post
     # Grabbing both users and collaborations info now to reduce db query in show.html.erb
     @usersCollaboration=User.joins("LEFT OUTER JOIN collaborators

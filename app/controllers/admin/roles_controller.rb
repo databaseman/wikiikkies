@@ -3,7 +3,7 @@ class Admin::RolesController < Admin::ApplicationController
   before_action :set_role, only: [:show, :edit, :update, :destroy]
 
   def index
-    @roles=Role.all.sort_by{ |role| role.name }.paginate(page: params[:page], per_page: 10)
+    @roles=Role.all.order("name").paginate(page: params[:page], per_page: 10)
   end
 
   def show
