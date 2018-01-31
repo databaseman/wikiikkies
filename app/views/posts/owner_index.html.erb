@@ -8,7 +8,7 @@
 </header>
 
 <%= form_tag(posts_owner_index_path, method: :get) do %>
-  Post Title <%= text_field_tag :title %>
+  Post Title <%= text_field_tag :title, params[:title] %>
   <%= submit_tag 'Search', name: nil %>
 <% end %>
 <br>

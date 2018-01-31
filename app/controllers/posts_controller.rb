@@ -32,12 +32,13 @@ class PostsController < ApplicationController
   end
 
   def collaborate_index #Other's & own collaborations
+    main_posts=policy_scope(Post).where( "posts.user_id = ? AND exists (select 1 from collaborators c where c.post_id=posts.id)", current_user.id)
+          .or(policy_scope(Post).where( "exists (select 1 from collaborators c where c.post_id=posts.id and c.user_id=?)",current_user.id ))
+
     if params[:title]
-      @posts = current_user.post_collaborations.where('title LIKE ?', "%#{params[:title]}%").order("title").paginate(page: params[:page], per_page: 10)
+      @posts = main_posts.where('title LIKE ?', "%#{params[:title]}%").order("title").paginate(page: params[:page], per_page: 10)
     else
-      @posts=Post.where( "posts.user_id = ? AND exists (select 1 from collaborators c where c.post_id=posts.id)", current_user.id)
-            .or(Post.where( "exists (select 1 from collaborators c where c.post_id=posts.id and c.user_id=?)",current_user.id ))
-            .order("title").paginate(page: params[:page], per_page: 10)
+      @posts=main_posts.order("title").order("title").paginate(page: params[:page], per_page: 10)
     end
   end
 

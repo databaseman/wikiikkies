@@ -8,22 +8,23 @@
 </header>
 
 <%= form_tag(posts_path, method: :get) do %>
-  Post Title <%= text_field_tag :title %>  
+  Post Title <%= text_field_tag :title, params[:title] %>
   <%= submit_tag 'Search', name: nil %>
 <% end %>
 <br>
 <div id="posts">
   <% @posts.each do |post| %>
-<!-- if post.user_collaborators.include?(current_user)
-       link_to post.title, post, class: 'collaborating'
- This makes too many calls to db.  won't scaled.  If want to use it, then
- have to modify Pundit scope to include the collaboration information.
+<!--  This makes too many calls to db.  won't scaled.  If want to use it, then
+  have to modify Pundit scope to include the collaboration information.
+   if post.user_collaborators.include?(current_user)
+    <li><%= link_to post.title, post, class: 'collaborating' %></li>
+   elsif (post.user_id == current_user.id)
+    <li><%= link_to post.title, post, class: 'mine' %></li>
+   else %>
+    <li><%= link_to post.title, post %></li>
+   end %>
 -->
-    <% if (post.user_id == current_user.id) %>
-       <li><%= link_to post.title, post, class: 'mine' %></li>
-    <% else %>
-       <li><%= link_to post.title, post %></li>
-    <% end %>
+    <li><%= link_to post.title, post %></li>
   <% end %>
 </div>
 <br>
