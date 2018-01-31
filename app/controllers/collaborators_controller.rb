@@ -3,8 +3,9 @@ class CollaboratorsController < ApplicationController
 
   def show
     @post=policy_scope(Post).find(params[:id])
-    authorize @post
+    authorize @post, :collaborate?
     # Grabbing both users and collaborations info now to reduce db query in show.html.erb
+    # Can't use ? in joins
     @usersCollaboration=User.joins("LEFT OUTER JOIN collaborators
                           ON collaborators.user_id=users.id
                           AND collaborators.post_id=#{@post.id}
