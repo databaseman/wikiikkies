@@ -4,7 +4,7 @@
 </header>
 <h2><strong>Title: <%= @post.title %></strong></h2>
 
-<%= form_tag(posts_collaborate_index_path, method: :get) do %>
+<%= form_tag(post_collaborator_path, method: :get) do %>
   User Name <%= text_field_tag :name, params[:name] %>
   <%= submit_tag 'Search', name: nil %>
 <% end %>

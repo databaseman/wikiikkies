@@ -6,11 +6,16 @@ class CollaboratorsController < ApplicationController
     authorize @post, :collaborate?
     # Grabbing both users and collaborations info now to reduce db query in show.html.erb
     # Can't use ? in joins
-    @usersCollaboration=User.joins("LEFT OUTER JOIN collaborators
+    base_query="LEFT OUTER JOIN collaborators
                           ON collaborators.user_id=users.id
                           AND collaborators.post_id=#{@post.id}
-                        WHERE users.id != #{current_user.id}").
-               select( "users.id, users.name, users.email, collaborators.id cid").paginate(page: params[:page], per_page: 10)
+                        WHERE users.id != #{current_user.id}"
+    search_query=base_query+" AND users.name like '%#{params[:name]}%'"
+    if params[:name]
+      @usersCollaboration=User.joins( search_query ).select( "users.id, users.name, users.email, collaborators.id cid").paginate(page: params[:page], per_page: 10)
+    else
+      @usersCollaboration=User.joins( base_query ).select( "users.id, users.name, users.email, collaborators.id cid").paginate(page: params[:page], per_page: 10)
+    end
   end
 
   def new
