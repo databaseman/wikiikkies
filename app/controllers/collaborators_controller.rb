@@ -10,11 +10,21 @@ class CollaboratorsController < ApplicationController
                           ON collaborators.user_id=users.id
                           AND collaborators.post_id=#{@post.id}
                         WHERE users.id != #{current_user.id}"
-    search_query=base_query+" AND users.name like '%#{params[:name]}%'"
+    name_query=base_query+" AND users.name like '%#{params[:name]}%'"
+    email_query=base_query+" AND users.email like '%#{params[:email]}%'"
+
     if params[:name]
-      @usersCollaboration=User.joins( search_query ).select( "users.id, users.name, users.email, collaborators.id cid").paginate(page: params[:page], per_page: 10)
+      @usersCollaboration=User.joins( name_query )
+      .order("name")
+      .select( "users.id, users.name, users.email, collaborators.id cid").paginate(page: params[:page], per_page: 10)
+    elsif params[:email]
+      @usersCollaboration=User.joins( email_query )
+      .order("email")
+      .select( "users.id, users.name, users.email, collaborators.id cid").paginate(page: params[:page], per_page: 10)
     else
-      @usersCollaboration=User.joins( base_query ).select( "users.id, users.name, users.email, collaborators.id cid").paginate(page: params[:page], per_page: 10)
+      @usersCollaboration=User.joins( base_query )
+      .order("name")
+      .select( "users.id, users.name, users.email, collaborators.id cid").paginate(page: params[:page], per_page: 10)
     end
   end
 

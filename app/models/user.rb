@@ -16,7 +16,7 @@ class User < ApplicationRecord
   before_save { self.email = email.downcase if email.present? }
   before_destroy :destroy_assignments  # remove dependents first. Have to do this with has_many through
 
-  default_scope { order(email: :asc) }
+  #default_scope { order(email: :asc) }
 
   # user.role?("premium")
   def role?(role)

@@ -5,7 +5,12 @@
 <h2><strong>Title: <%= @post.title %></strong></h2>
 
 <%= form_tag(post_collaborator_path, method: :get) do %>
-  User Name <%= text_field_tag :name, params[:name] %>
+  User Name  <%= text_field_tag :name, params[:name] %>
+  <%= submit_tag 'Search', name: nil %>
+<% end %>
+<br>
+<%= form_tag(post_collaborator_path, method: :get) do %>
+  User Email <%= text_field_tag :email, params[:email] %>
   <%= submit_tag 'Search', name: nil %>
 <% end %>
 <br>

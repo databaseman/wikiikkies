@@ -4,7 +4,13 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:destroy]
 
   def index
-    @users=policy_scope(User).paginate(page: params[:page], per_page: 10)
+    if params[:name]
+      @users=policy_scope(User).where("name LIKE ?", "%#{params[:name]}%").order("name").paginate(page: params[:page], per_page: 10)
+    elsif params[:email]
+      @users=policy_scope(User).where("email LIKE ?", "%#{params[:email]}%").order("email").paginate(page: params[:page], per_page: 10)
+    else
+      @users=policy_scope(User).order("name").paginate(page: params[:page], per_page: 10)
+    end
   end
 
   def destroy
