@@ -36,7 +36,8 @@ end
 
 # Standard user can't create post. These could be left over when downgrade from premium.
 # When downgrade, user still have ability to edit and delete their own posts
-users = User.where( "email LIKE ?", 'standard%' ).take(15)
+# first 10% has been downgraded. Remove the order clause if you want randomize
+users = User.where( "email LIKE ?", 'standard%' ).order("email").take((NUMBER_OF_USERS * 0.10).round)
 4.times do
   users.each { |user| user.posts.create!(title: Faker::Lorem.sentence(1).slice(0,TITLE_SIZE), body: Faker::Lorem.sentence(5) ) }
 end
@@ -65,26 +66,28 @@ role = Role.where( name: 'premium').first
 users.each { |user| Assignment.create!( user: user, role: role) }
 
 # Premium users Public Microposts
-users = User.where( "email LIKE ?", 'premium%' ).take( NUMBER_OF_USERS )
+users = User.where( "email LIKE ?", 'premium%' ).order("email").take( NUMBER_OF_USERS )
 NUMBER_OF_POSTS.times do
   users.each { |user| user.posts.create!(title: Faker::Lorem.sentence(1).slice(0,TITLE_SIZE), body: Faker::Lorem.sentence(5) ) }
 end
 
-# Premium users Private Microposts
-users = User.where( "email LIKE ?", 'premium%' ).take( (NUMBER_OF_USERS * 0.45).round )
+# Premium users Private Microposts. 45% of the first premium users will have private posts
+# remove the order clause if you want randomize
+users = User.where( "email LIKE ?", 'premium%' ).order("email").take( (NUMBER_OF_USERS * 0.45).round )
 NUMBER_OF_POSTS.times do
   users.each { |user| user.posts.create!(title: Faker::Lorem.sentence(1).slice(0,TITLE_SIZE), body: Faker::Lorem.sentence(5), private: true ) }
 end
 
 # Premium users Collaboratorating on private posts belonging to other Premium users.
-users = User.where( "email LIKE ?", 'premium%' ).take((NUMBER_OF_USERS * 0.10).round )
+# remove the order clause if you want randomize
+users = User.where( "email LIKE ?", 'premium%' ).order("email").take((NUMBER_OF_USERS * 0.10).round )
 users.each do |user|
   post=Post.where.not( user: user, private: false).take(20)
   post.each { |post| Collaborator.create!( user: user, post: post ) }
 end
 
 # Standard users Collaboratorating on private posts belonging to other Premium users.
-users = User.where( "email LIKE ?", 'standard%' ).take((NUMBER_OF_USERS * 0.10).round )
+users = User.where( "email LIKE ?", 'standard%' ).order("email").take((NUMBER_OF_USERS * 0.10).round )
 users.each do |user|
   post=Post.where.not( user: user, private: false).take(20)
   post.each { |post| Collaborator.create!( user: user, post: post ) }
