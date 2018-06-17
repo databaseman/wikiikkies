@@ -30,13 +30,14 @@ ActiveRecord::Schema.define(version: 20171129182636) do
   end
 
   create_table "posts", force: :cascade do |t|
-    t.string   "title"
+    t.string   "title",      null: false
     t.string   "body"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.boolean  "private",    default: false
     t.integer  "user_id"
-    t.index ["user_id"], name: "index_posts_on_user_id"
+    t.index ["title"],       name: "index_posts_on_title"
+    t.index ["user_id"],     name: "index_posts_on_user_id"
   end
 
   create_table "roles", force: :cascade do |t|
