@@ -7,7 +7,7 @@ end
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.0.1'
+gem 'rails', '~> 5.1.6'
 # Use Puma as the app server
 gem 'puma'
 # Use SCSS for stylesheets
@@ -64,7 +64,7 @@ gem 'will_paginate'           # formating
 gem "font-awesome-rails"        # formating
 gem "simple_form"             # formating
 gem 'devise'                    # Authorization
-gem 'devise_security_extension' # Extra security for devise
+gem 'devise_security_extension', git: 'https://github.com/phatworx/devise_security_extension.git' # Extra security for devise
 gem 'rails_email_validator'     # email validator for devise
 gem 'stripe'                  # credit card handing
 gem 'redcarpet'               # markup html
