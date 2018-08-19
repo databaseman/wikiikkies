@@ -43,7 +43,7 @@ ul.actions {
   @extend .list-inline;
 }
 
-a.add, a.new, a.edit, a.delete, a.collaborate {
+a.add, a.new, a.edit, a.delete, a.collaborate, a.upload {
   @extend .btn;
   &:before {
     font-family: "FontAwesome";
@@ -58,6 +58,13 @@ a.add {
 }
 
 a.new {
+  @extend .btn-success;
+  &:before {
+    @extend .fa-plus;
+  }
+}
+
+a.upload {
   @extend .btn-success;
   &:before {
     @extend .fa-plus;

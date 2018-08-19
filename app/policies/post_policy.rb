@@ -27,6 +27,10 @@ class PostPolicy < ApplicationPolicy
     !record.private? || record.user_id == user.id || record.user_collaborators.include?(user) || user.role?("admin")
   end
 
+  def create?
+    user.role?("premium") || user.role?("admin")
+  end
+
   # Same as update
   def edit?
     update?

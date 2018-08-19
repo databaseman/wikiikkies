@@ -94,6 +94,7 @@ class PostsController < ApplicationController
     redirect_to posts_path
   end
 
+
   private
 
   def set_post
@@ -105,6 +106,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :body, :private )  #Seccurity. Allow only these fields to be updated/entered
+    params.require(:post).permit(:title, :body, :private, :attachment )  #Seccurity. Allow only these fields to be updated/entered
   end
 end
