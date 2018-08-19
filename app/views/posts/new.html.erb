@@ -6,9 +6,6 @@
   <%= f.input :body, as: :text, autofocus: true, :input_html => {:style => 'width: 100%', :rows => 8} %>
   <!-- Only premium owner or admin can create post or add attachment -->
   <% if policy(@post).create? -%>
-    <%= f.label :attachment %>
-    <%= f.file_field :attachment %>
-    <br>
     <%= f.button :submit, class: "btn-primary" %> <%= link_to "Cancel", root_path, class: "btn btn-default"  %>
   <% end %>
 <% end %>

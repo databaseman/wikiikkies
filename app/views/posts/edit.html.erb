@@ -4,20 +4,7 @@
 <%= simple_form_for(@post) do |f| %>
   <%= f.input :title %>
   <%= f.input :body, as: :text, autofocus: true, :input_html => {:style => 'width: 100%', :rows => 8} %>
-  <!-- Only premium owner or admin can create post -->
-
   <% if policy(@post).update? -%>
-    <%= f.label :attachment %>
-    <%= f.file_field :attachment %>
-    <% if !@post.attachment.file.nil? -%>
-      <p>
-        <label>
-          Current attachment <%=@post.attachment_url%>
-        </label>
-      </p>
-    <% end %>
-    <br>
     <%= f.button :submit, class: "btn-primary" %> <%= link_to "Cancel", root_path, class: "btn btn-default"  %>
   <% end %>
-
 <% end %>
