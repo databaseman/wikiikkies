@@ -9,4 +9,8 @@
   <% if policy(@post).update? -%>
     <%= f.button :submit, class: "btn-primary" %> <%= link_to "Cancel", root_path, class: "btn btn-default"  %>
   <% end %>
+  <!-- Only premium owner or admin can change post privacy -->
+   <% if policy(@post).checkbox? -%>
+     <%= f.input :private, inline_lable: 'Private Lable', as: :boolean, checked_value: true, unchecked_value: false %>
+   <% end %>
 <% end %>

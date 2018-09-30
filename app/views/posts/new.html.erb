@@ -11,4 +11,7 @@
   <% if policy(@post).create? -%>
     <%= f.button :submit, class: "btn-primary" %> <%= link_to "Cancel", root_path, class: "btn btn-default"  %>
   <% end %>
+  <% if policy(@post).checkbox? -%>
+    <%= f.input :private, inline_lable: 'Private Lable', as: :boolean, checked_value: true, unchecked_value: false %>
+  <% end %>
 <% end %>
