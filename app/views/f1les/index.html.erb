@@ -1,0 +1,25 @@
+
+<%= link_to "New File", new_post_f1le_path, class: "btn btn-primary" %>
+<br />
+<br />
+
+<table class = "table table-bordered table-striped">
+   <thead>.
+      <tr>
+         <th>Name</th>
+         <th>Download Link</th>
+         <th> </th>
+      </tr>
+   </thead>
+
+   <tbody>
+      <% @f1les.each do |f| %>
+         <tr>
+            <td><%= f.name %></td>
+            <td><%= link_to "Download File", f.attachment_url %></td>
+            <td><%= link_to "Delete", post_f1le_path(@post, f), method: :delete, class: "delete", data: { confirm: "Are you sure you want to delete #{f.attachment}?" } %></td>
+         </tr>
+      <% end %>
+   </tbody>
+
+</table>

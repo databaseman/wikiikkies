@@ -31,6 +31,7 @@ Rails.application.routes.draw do
 
   resources :posts do
     resources :collaborators
+    resources :f1les
   end
 
 end
