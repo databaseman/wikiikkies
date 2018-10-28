@@ -1,5 +1,8 @@
-
-<%= link_to "New File", new_post_f1le_path, class: "btn btn-primary" %>
+<header>
+  <h1>File Attachment</h1>
+  <h3><%= @post.title %></h3>
+</header>
+<%= link_to "New File", new_post_f1le_path, class: "btn btn-primary" %> <%= link_to "Cancel", post_path(@post), class: "btn btn-default"  %>
 <br />
 <br />
 
