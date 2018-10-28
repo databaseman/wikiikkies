@@ -4,7 +4,7 @@ class F1lesController < ApplicationController
   def index
      @post=policy_scope(Post).find(params[:post_id])
      authorize @post, :update?
-     @f1les = @post.f1les
+     @f1les = @post.f1les.order("name").paginate(page: params[:page], per_page: 10) #not sure why, but can't use @row_count here
   end
 
   def new

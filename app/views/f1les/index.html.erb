@@ -6,16 +6,13 @@
 <br />
 <br />
 
-<table class = "table table-bordered table-striped">
-   <thead>.
+<div class="table table-responsive">
+  <table class="table">
       <tr>
          <th>Name</th>
          <th>Download Link</th>
          <th> </th>
       </tr>
-   </thead>
-
-   <tbody>
       <% @f1les.each do |f| %>
          <tr>
             <td><%= f.name %></td>
@@ -23,6 +20,13 @@
             <td><%= link_to "Delete", post_f1le_path(@post, f), method: :delete, class: "delete", data: { confirm: "Are you sure you want to delete #{f.attachment}?" } %></td>
          </tr>
       <% end %>
-   </tbody>
+  </table>
+</div>
 
-</table>
+<br>
+<div class="pagination">
+    <div class="page_info">
+      <%= page_entries_info @f1les %>
+    </div>
+    <%= will_paginate @f1les, :container => false %>
+</div>

@@ -1,5 +1,6 @@
 class CollaboratorsController < ApplicationController
   before_action :authenticate_user!
+  @row_count=15
 
   def show
     @post=policy_scope(Post).find(params[:id])
@@ -16,15 +17,15 @@ class CollaboratorsController < ApplicationController
     if params[:name]
       @usersCollaboration=User.joins( name_query )
       .order("name")
-      .select( "users.id, users.name, users.email, collaborators.id cid").paginate(page: params[:page], per_page: 10)
+      .select( "users.id, users.name, users.email, collaborators.id cid").paginate(page: params[:page], per_page: @row_count)
     elsif params[:email]
       @usersCollaboration=User.joins( email_query )
       .order("email")
-      .select( "users.id, users.name, users.email, collaborators.id cid").paginate(page: params[:page], per_page: 10)
+      .select( "users.id, users.name, users.email, collaborators.id cid").paginate(page: params[:page], per_page: @row_count)
     else
       @usersCollaboration=User.joins( base_query )
       .order("name")
-      .select( "users.id, users.name, users.email, collaborators.id cid").paginate(page: params[:page], per_page: 10)
+      .select( "users.id, users.name, users.email, collaborators.id cid").paginate(page: params[:page], per_page: @row_count)
     end
   end
 
