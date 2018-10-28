@@ -5,6 +5,7 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_post, only: [:show, :edit, :update, :destroy, :collaborate]
+  @row_count=15
 
   def index #All own, public, and collaborations
     #Using order clause instead of sort_by will do the sort and 10 records limit on the database side instead of
@@ -12,9 +13,9 @@ class PostsController < ApplicationController
     #However, the order clause calls the dbs two extra times: 1 with the same query and another for a select count(*)? for the same predicates. Why?
     #It is still faster and probably going to scale better that the sort_by.
     if params[:title]
-      @posts = policy_scope(Post).where('title LIKE ?', "%#{params[:title]}%").order("title").paginate(page: params[:page], per_page: 10)
+      @posts = policy_scope(Post).where('title LIKE ?', "%#{params[:title]}%").order("title").paginate(page: params[:page], per_page: @row_count)
     else
-      @posts=policy_scope(Post).order("title").paginate(page: params[:page], per_page: 10)
+      @posts=policy_scope(Post).order("title").paginate(page: params[:page], per_page: @row_count)
     end
   end
 
@@ -25,9 +26,9 @@ class PostsController < ApplicationController
   def owner_index #own only
     #It calls the database again, using the scope definition and added an AND with the new where clause.
     if params[:title]
-      @posts = policy_scope(Post).where("user_id=? AND title LIKE ?", current_user.id, "%#{params[:title]}%").order( "title" ).paginate(page: params[:page], per_page: 10)
+      @posts = policy_scope(Post).where("user_id=? AND title LIKE ?", current_user.id, "%#{params[:title]}%").order( "title" ).paginate(page: params[:page], per_page: @row_count)
     else
-      @posts=policy_scope(Post).where( "user_id = ?", current_user.id ).order("title").paginate(page: params[:page], per_page: 10)
+      @posts=policy_scope(Post).where( "user_id = ?", current_user.id ).order("title").paginate(page: params[:page], per_page: @row_count)
     end
   end
 
@@ -36,9 +37,9 @@ class PostsController < ApplicationController
           .or(policy_scope(Post).where( "exists (select 1 from collaborators c where c.post_id=posts.id and c.user_id=?)",current_user.id ))
 
     if params[:title]
-      @posts = main_posts.where('title LIKE ?', "%#{params[:title]}%").order("title").paginate(page: params[:page], per_page: 10)
+      @posts = main_posts.where('title LIKE ?', "%#{params[:title]}%").order("title").paginate(page: params[:page], per_page: @row_count)
     else
-      @posts=main_posts.order("title").order("title").paginate(page: params[:page], per_page: 10)
+      @posts=main_posts.order("title").order("title").paginate(page: params[:page], per_page: @row_count)
     end
   end
 
