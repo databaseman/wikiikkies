@@ -1,21 +1,13 @@
-<% if !@f1le.errors.empty? %>
-   <div class = "alert alert-error">
-
-      <ul>
-         <% @f1le.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-         <% end %>
-      </ul>
-
-   </div>
-<% end %>
+<header>
+  <h1>File Attachment</h1>
+  <h3><%= @post.title %></h3>
+</header>
 
 <div class = "well">
-   <%= form_for ([:post, @f1le]), html: { multipart: true } do |f| %>
-      <%= f.label :name %>
-      <%= f.text_field :name %>
-      <%= f.label :attachment %>
-      <%= f.file_field :attachment %>
-      <%= f.submit "Save", class: "btn btn-primary" %>
+   <%= simple_form_for ([:post, @f1le]), html: { multipart: true } do |f| %>
+      <%= f.input :name %>
+      <%= f.input :attachment %>
+      <br>
+      <%= f.submit "Save", class: "btn btn-primary" %> <%= f.submit "Cancel", class: "btn btn-default"  %>
    <% end %>
 </div>

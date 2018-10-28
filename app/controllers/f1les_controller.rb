@@ -9,6 +9,7 @@ class F1lesController < ApplicationController
 
   def new
      @f1le = F1le.new
+     @post=policy_scope(Post).find(params[:post_id])
   end
 
   def create
