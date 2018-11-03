@@ -23,6 +23,29 @@ class UsersController < ApplicationController
     end
   end
 
+  def new
+    @user=User.new
+  end
+
+  def create
+    @user=User.new
+    @user.name=params[:user][:name]
+    @user.email=params[:user][:email]
+    @user.password=params[:user][:password]
+    if @user.save
+      role = Role.where( name: 'premium').first
+      Assignment.create!( user: @user, role: role)
+      flash[:notice] = "User has been created as a Premium user."
+      redirect_to new_users_path(@user)
+    else
+      flash.now[:alert] = "User has not been created."
+      render "new"
+    end
+  end
+
+  def show
+  end
+
   private
 
   def set_user

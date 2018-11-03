@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   get 'collaborators/show'
+  resource :users
   get 'users/index'
-  get 'users/show'
+
   get 'posts/owner_index'
   get 'posts/collaborate_index'
 
