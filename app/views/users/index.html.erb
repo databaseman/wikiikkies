@@ -2,7 +2,7 @@
 <header>
   <h1>Users</h1>
 </header>
-<%= link_to "New User", new_users_path, class: "btn btn-primary" %> <%= link_to "Cancel", root_path, class: "btn btn-default"  %>
+<%= link_to "New User", new_user_path, class: "btn btn-primary" %> <%= link_to "Cancel", root_path, class: "btn btn-default"  %>
 <br>
 <br>
 <div class="table table-responsive">
@@ -27,6 +27,7 @@
         <tr>
           <td><%= user.name+" ("+user.email+")" %></td>
           <td>
+            <%= link_to "Edit",   edit_user_path(user), class: "edit" %>
             <%= link_to "Delete", admin_destroy_user_path(user), method: :delete, class: "delete", data: { confirm: "You sure?" } %>
           </td>
         </tr>

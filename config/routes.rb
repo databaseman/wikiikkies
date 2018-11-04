@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   get 'collaborators/show'
-  resource :users
+
   get 'users/index'
 
   get 'posts/owner_index'
@@ -25,7 +25,8 @@ Rails.application.routes.draw do
     resources :roles
   end
 
-  devise_for :users
+  devise_for :users, path_prefix: 'my'
+  resources :users  # this has to go after the devise_for
   match 'users/:id' => 'users#destroy', :via => :delete, :as => :admin_destroy_user #need this for delete user
 
   resources :assignments

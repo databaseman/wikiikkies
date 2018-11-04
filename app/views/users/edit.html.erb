@@ -1,0 +1,12 @@
+<header>
+  <h1>Edit User</h1>
+</header>
+<%= simple_form_for(@user) do |f| %>
+  <%= f.input :name  %>
+  <%= f.input :email, readonly: true %>
+  <%= f.input :password, label: 'Password'%>
+  <!-- Only admin can create user -->
+  <% if current_user.role?("admin") -%>
+    <%= f.button :submit, class: "btn-primary" %> <%= link_to "Cancel", users_path, class: "btn btn-default"  %>
+  <% end %>
+<% end %>

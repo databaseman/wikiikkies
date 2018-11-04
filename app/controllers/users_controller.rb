@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :authorize_admin!, only: [:index]
-  before_action :set_user, only: [:destroy]
+  before_action :set_user, only: [:destroy, :edit, :update]
 
   def index
     if params[:name]
@@ -36,7 +36,7 @@ class UsersController < ApplicationController
       role = Role.where( name: 'premium').first
       Assignment.create!( user: @user, role: role)
       flash[:notice] = "User has been created as a Premium user."
-      redirect_to new_users_path(@user)
+      redirect_to new_user_path(@user)
     else
       flash.now[:alert] = "User has not been created."
       render "new"
@@ -44,6 +44,20 @@ class UsersController < ApplicationController
   end
 
   def show
+  end
+
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    if @user.update(user_params)
+      flash[:notice] = "User has been updated."
+      redirect_to users_index_path
+    else
+      flash.now[:alert] = "User has not been updated."
+      render "edit"
+    end
   end
 
   private
@@ -56,7 +70,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email)  #Seccurity. Allow only these fields to be updated/entered
+    params.require(:user).permit(:name, :email, :password)  #Seccurity. Allow only these fields to be updated/entered
   end
 
   def authorize_admin!
