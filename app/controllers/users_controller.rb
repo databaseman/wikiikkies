@@ -2,15 +2,27 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :authorize_admin!, only: [:index]
   before_action :set_user, only: [:destroy, :edit, :update]
+  @row_count=15
 
   def index
+    base_query="LEFT OUTER JOIN assignments ON assignments.user_id=users.id WHERE 1=1"
+    name_query=base_query+" AND users.name like '%#{params[:name]}%'"
+    email_query=base_query+" AND users.email like '%#{params[:email]}%'"
+
     if params[:name]
-      @users=policy_scope(User).where("name LIKE ?", "%#{params[:name]}%").order("name").paginate(page: params[:page], per_page: 10)
+      @usersAssignment=User.joins( name_query )
+      .order("name")
+      .select( "users.id, users.name, users.email, assignments.id aid").paginate(page: params[:page], per_page: @row_count)
     elsif params[:email]
-      @users=policy_scope(User).where("email LIKE ?", "%#{params[:email]}%").order("email").paginate(page: params[:page], per_page: 10)
+      @usersAssignment=User.joins( email_query )
+      .order("email")
+      .select( "users.id, users.name, users.email, assignments.id aid").paginate(page: params[:page], per_page: @row_count)
     else
-      @users=policy_scope(User).order("name").paginate(page: params[:page], per_page: 10)
+      @usersAssignment=User.joins( base_query )
+      .order("name")
+      .select( "users.id, users.name, users.email, assignments.id aid").paginate(page: params[:page], per_page: @row_count)
     end
+
   end
 
   def destroy

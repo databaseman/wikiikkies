@@ -23,9 +23,16 @@
 
 <div class="table table-responsive">
     <table class="table">
-      <% @users.each do |user| %>
+      <% @usersAssignment.each do |user| %>
         <tr>
-          <td><%= user.name+" ("+user.email+")" %></td>
+          <td>
+            <% if !user.aid.nil? %>
+              <% role = Assignment.find( user.aid ).role.name %>
+            <% else %>
+              <% role = "standard" %>
+            <% end %>
+            <%= user.name+" ("+user.email+")"+" Role: "+role %>
+          </td>
           <td>
             <%= link_to "Edit",   edit_user_path(user), class: "edit" %>
             <%= link_to "Delete", admin_destroy_user_path(user), method: :delete, class: "delete", data: { confirm: "You sure?" } %>
@@ -37,7 +44,7 @@
 <br>
 <div class="pagination">
     <div class="page_info">
-      <%= page_entries_info @users %>
+      <%= page_entries_info @usersAssignment %>
     </div>
-    <%= will_paginate @users, :container => false %>
+    <%= will_paginate @usersAssignment, :container => false %>
 </div>
