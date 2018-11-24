@@ -5,22 +5,22 @@ class UsersController < ApplicationController
   @row_count=15
 
   def index
-    base_query="LEFT OUTER JOIN assignments ON assignments.user_id=users.id WHERE 1=1"
+    base_query="LEFT OUTER JOIN assignments ON assignments.user_id=users.id WHERE users.id != #{current_user.id}"
     name_query=base_query+" AND users.name like '%#{params[:name]}%'"
     email_query=base_query+" AND users.email like '%#{params[:email]}%'"
 
     if params[:name]
       @usersAssignment=User.joins( name_query )
       .order("name")
-      .select( "users.id, users.name, users.email, assignments.id aid").paginate(page: params[:page], per_page: @row_count)
+      .select( "users.id, users.name, users.email, users.last_sign_in_at, assignments.id aid").paginate(page: params[:page], per_page: @row_count)
     elsif params[:email]
       @usersAssignment=User.joins( email_query )
       .order("email")
-      .select( "users.id, users.name, users.email, assignments.id aid").paginate(page: params[:page], per_page: @row_count)
+      .select( "users.id, users.name, users.email, users.last_sign_in_at, assignments.id aid").paginate(page: params[:page], per_page: @row_count)
     else
       @usersAssignment=User.joins( base_query )
       .order("name")
-      .select( "users.id, users.name, users.email, assignments.id aid").paginate(page: params[:page], per_page: @row_count)
+      .select( "users.id, users.name, users.email, users.last_sign_in_at, assignments.id aid").paginate(page: params[:page], per_page: @row_count)
     end
 
   end
