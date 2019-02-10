@@ -9,22 +9,22 @@ end
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.6'
 # Use Puma as the app server
-gem 'puma'
+gem 'puma', '~> 3.12.0'
 # Use SCSS for stylesheets
-gem 'sass-rails'
+gem 'sass-rails', '~> 5.0.7'
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier'
+gem 'uglifier', '~> 4.1.20'
 # Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails'
+gem 'coffee-rails', '~>4.2.2'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails'
+gem 'jquery-rails', '~> 4.3.3'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks'
+gem 'turbolinks', '~> 5.2.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder'
+gem 'jbuilder', '~> 2.8.0'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
@@ -35,11 +35,11 @@ gem 'jbuilder'
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'web-console'
-  gem 'listen'
+  gem 'web-console', '~> 3.7.0'
+  gem 'listen', '~> 3.1.5'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-  gem 'spring-watcher-listen'
+  gem 'spring', '~> 2.0.2'
+  gem 'spring-watcher-listen', '~> 2.0.1'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -51,30 +51,30 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
-  gem 'rspec-rails'
-  gem 'rails-controller-testing'
-  gem 'sqlite3' # Use sqlite3 as the database for Active Record
+  gem 'rspec-rails', '~> 3.8.1'
+  gem 'rails-controller-testing', '~> 1.0.2'
+  gem 'sqlite3'#, '~> 1.3.13' # Use sqlite3 as the database for Active Record
 end
 
-gem "capybara",                 :group => [:test]
-gem "factory_girl_rails",       :group => [:test]
-gem "bootstrap-sass"            # formating
-gem "bootstrap-will_paginate" # formating
-gem 'will_paginate'           # formating
-gem "font-awesome-rails"        # formating
-gem "simple_form"             # formating
-gem 'devise'                    # Authorization
-gem 'devise_security_extension', git: 'https://github.com/phatworx/devise_security_extension.git' # Extra security for devise
-gem 'rails_email_validator'     # email validator for devise
-gem 'stripe'                  # credit card handing
-gem 'redcarpet'               # markup html
-gem 'pundit'                  # Access control
-gem 'figaro'                  # environment variables hidden
-gem 'faker'                   # test data
-gem 'carrierwave'             # for attachement
+gem "capybara", '~> 3.11.1',                :group => [:test]
+gem "factory_girl_rails", '~> 4.9.0',       :group => [:test]
+gem "bootstrap-sass" , '~> 3.3.7'          # formating
+gem "bootstrap-will_paginate", '~> 1.0.0' # formating
+gem 'will_paginate', '~> 3.1.6'           # formating
+gem "font-awesome-rails", '~> 4.7.0.4'       # formating
+gem "simple_form", '~> 4.0.1'             # formating
+gem 'devise', '~> 4.5.0'                    # Authorization
+gem 'devise_security_extension', '~> 0.10.0', git: 'https://github.com/phatworx/devise_security_extension.git' # Extra security for devise
+gem 'rails_email_validator', '~> 0.1.4'     # email validator for devise
+gem 'stripe', '~> 4.0.2'                  # credit card handing
+gem 'redcarpet','~> 3.4.0'               # markup html
+gem 'pundit', '~> 2.0.0'                  # Access control
+gem 'figaro', '~> 1.1.1'                  # environment variables hidden
+gem 'faker', '~>1.9.1'                   # test data
+gem 'carrierwave', '~> 1.2.3'             # for attachement
 group :production do
-  gem 'pg'
-  gem 'rails_12factor'
+  gem 'pg' #,'~> 1.1.3' Postgress
+  gem 'rails_12factor', '~> 0.0.3' #Logging required for Heroku
 end
-gem 'sprockets'
+gem 'sprockets', '~> 3.7.2' # Required for SASS
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
