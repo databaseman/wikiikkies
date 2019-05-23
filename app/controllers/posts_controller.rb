@@ -1,4 +1,4 @@
-# test
+#
 # Post must belongs to a user, but other people can do everything else with the post,
 # thus only new and create needs to be associated with a post.
 #
