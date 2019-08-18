@@ -47,6 +47,21 @@ users = User.where( "email LIKE ?", 'nguyen_ba_minh%' )
 role = Role.where( name: 'premium').first
 users.each { |user| Assignment.create!( user: user, role: role) }
 
+#Reset password
+#new_password='Password1'
+#user=User.where(email: 'nguyen_ba_minh@yahoo.com').first
+#user.password = new_password
+#user.password_confirmation = new_password
+#user.save
+#user=User.where(email: 'admin@yahoo.com').first
+#user.password = new_password
+#user.password_confirmation = new_password
+#user.save
+#or
+#new_password='Password1'
+#user=User.where(email: 'admin@yahoo.com').first
+#user.update_attributes(password: new_password)
+
 #
 puts "Seed finished"
 puts "#{Role.count} roles created"

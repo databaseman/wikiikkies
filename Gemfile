@@ -7,7 +7,7 @@ end
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.6'
+gem 'rails', '~> 5.1.6.2'
 # Use Puma as the app server
 gem 'puma', '~> 3.12.0'
 # Use SCSS for stylesheets
@@ -53,7 +53,7 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'rspec-rails', '~> 3.8.1'
   gem 'rails-controller-testing', '~> 1.0.2'
-  gem 'sqlite3'#, '~> 1.3.13' # Use sqlite3 as the database for Active Record
+  gem 'sqlite3', '~> 1.3.0' # Use sqlite3 as the database for Active Record; don't use 1.4 due to bug
 end
 
 gem "capybara", '~> 3.11.1',                :group => [:test]
