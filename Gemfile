@@ -58,12 +58,12 @@ end
 
 gem "capybara", '~> 3.11.1',                :group => [:test]
 gem "factory_girl_rails", '~> 4.9.0',       :group => [:test]
-gem "bootstrap-sass" , '~> 3.3.7'          # formating
+gem "bootstrap-sass" , '~> 3.4.1'          # formating
 gem "bootstrap-will_paginate", '~> 1.0.0' # formating
 gem 'will_paginate', '~> 3.1.6'           # formating
 gem "font-awesome-rails", '~> 4.7.0.4'       # formating
 gem "simple_form", '~> 4.0.1'             # formating
-gem 'devise', '~> 4.5.0'                    # Authorization
+gem 'devise', '~> 4.6.0'                    # Authorization
 gem 'devise_security_extension', '~> 0.10.0', git: 'https://github.com/phatworx/devise_security_extension.git' # Extra security for devise
 gem 'rails_email_validator', '~> 0.1.4'     # email validator for devise
 gem 'stripe', '~> 4.0.2'                  # credit card handing
