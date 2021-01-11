@@ -67,7 +67,7 @@ gem 'devise', '~> 4.6.0'                    # Authorization
 gem 'devise_security_extension', '~> 0.10.0', git: 'https://github.com/phatworx/devise_security_extension.git' # Extra security for devise
 gem 'rails_email_validator', '~> 0.1.4'     # email validator for devise
 gem 'stripe', '~> 4.0.2'                  # credit card handing
-gem 'redcarpet','~> 3.4.0'               # markup html
+gem 'redcarpet','~> 3.5.1'               # markup html
 gem 'pundit', '~> 2.0.0'                  # Access control
 gem 'figaro', '~> 1.1.1'                  # environment variables hidden
 gem 'faker', '~>1.9.1'                   # test data
