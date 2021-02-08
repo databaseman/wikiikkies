@@ -71,7 +71,7 @@ gem 'redcarpet','~> 3.4.0'               # markup html
 gem 'pundit', '~> 2.0.0'                  # Access control
 gem 'figaro', '~> 1.1.1'                  # environment variables hidden
 gem 'faker', '~>1.9.1'                   # test data
-gem 'carrierwave', '~> 1.2.3'             # for attachement
+gem 'carrierwave', '~> 1.3.2'             # for attachement
 group :production do
   gem 'pg' #,'~> 1.1.3' Postgress
   gem 'rails_12factor', '~> 0.0.3' #Logging required for Heroku
